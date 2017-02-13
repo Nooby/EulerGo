@@ -29,11 +29,14 @@ func init() {
 }
 
 func Verify(challenge int, solution string) (bool, error) {
-	if len(solutions) < challenge {
+	if challenge <= 0 || challenge >= len(solutions) {
 		return false, fmt.Errorf("solution not available for challenge %v", challenge)
 	}
 
 	sol := solutions[challenge-1]
+	if sol == "" {
+		return false, fmt.Errorf("solution not available for challenge %v", challenge)
+	}
 	return sol == solution, nil
 }
 
